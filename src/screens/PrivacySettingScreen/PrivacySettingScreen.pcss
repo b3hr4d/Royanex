@@ -1,0 +1,37 @@
+.PrivacySettingScreen {
+    & .card-header {
+        font-weight: bolder;
+    }
+    & .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    &__password {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        
+        & div {
+            display: flex;
+            align-items: center;
+        }
+    }
+    &__modal {
+        &__header {
+            display: flex;
+            justify-content: center;
+            position: relative;
+
+            & div {
+                position: absolute;
+                left: 0;
+            }
+        }
+    }
+    &__changeModalBody{
+        &__button {
+            width: 100%;
+        }
+    }
+}

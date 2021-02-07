@@ -1,0 +1,75 @@
+HTTP/2 200
+access-control-allow-origin: *
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE
+access-control-allow-headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+
+
+{
+    "email": "evinsoft@gmail.com",
+    "uid": "ID6BE0229481",
+    "role": "superadmin",
+    "nid": "1292763175",
+    "phone": "09358004230",
+    "full_name": "سید ایمای موسوی",
+    "level": 3,
+    "otp": false,
+    "state": "active",
+    "referral_uid": null,
+    "data": "{\"language\":\"fa\"}",
+    "created_at": "2021-01-15T23:04:07Z",
+    "updated_at": "2021-02-02T10:55:00Z",
+    "labels": [
+        {
+            "key": "email",
+            "value": "verified",
+            "scope": "private",
+            "created_at": "2021-01-15T23:04:49Z",
+            "updated_at": "2021-01-15T23:04:49Z"
+        },
+        {
+            "key": "phone",
+            "value": "verified",
+            "scope": "private",
+            "created_at": "2021-01-25T13:02:16Z",
+            "updated_at": "2021-01-25T13:02:16Z"
+        },
+        {
+            "key": "profile",
+            "value": "submitted",
+            "scope": "private",
+            "created_at": "2021-01-25T13:05:23Z",
+            "updated_at": "2021-01-25T13:05:23Z"
+        },
+        {
+            "key": "document",
+            "value": "verified",
+            "scope": "private",
+            "created_at": "2021-02-02T10:55:00Z",
+            "updated_at": "2021-02-02T10:55:00Z"
+        }
+    ],
+    "phones": [
+        {
+            "country": "IR",
+            "number": "989358004230",
+            "validated_at": "2021-01-25T13:02:16.000Z"
+        }
+    ],
+    "profiles": [
+        {
+            "first_name": "سید ایمای",
+            "last_name": "موسوی",
+            "dob": "1365-05-05",
+            "address": "100",
+            "postcode": "",
+            "city": null,
+            "country": "",
+            "state": "submitted",
+            "metadata": "{\"staticPhone\":\"05612123123\",\"state\":\"خراسان جنوبی\",\"city\":\"آیسک\"}",
+            "verification": null,
+            "created_at": "2021-01-25T13:05:23Z",
+            "updated_at": "2021-01-25T13:05:23Z"
+        }
+    ],
+    "data_storages": []
+}

@@ -1,0 +1,45 @@
+.pg-blur {
+    align-items: center;
+    backdrop-filter: blur(1px);
+    background: var(--body-background-color-level-6);
+    display: flex;
+    height: 100%;
+    min-height: 400px;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+
+    &__content {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        background: white;
+        opacity: 0.7;
+        border-radius: 5px;
+
+        &__icon {
+            margin-bottom: 12px;
+        }
+
+        &__text {
+            color: var(--primary-text-color);
+            font-size: 14px;
+            font-weight: normal;
+            letter-spacing: 0.1px;
+            line-height: 22px;
+            text-align: center;
+            opacity: 1;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .pg-blur {
+        padding-top: 30%;
+        backdrop-filter: blur(5px);
+        align-items: start;
+    }
+}

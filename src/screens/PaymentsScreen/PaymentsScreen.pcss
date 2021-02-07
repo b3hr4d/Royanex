@@ -1,0 +1,28 @@
+.paymentscreen {
+    align-items: center;
+    color: var(--primary-text-color);
+    background: var(--side-background-color);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    width: 100%;
+    position:absolute;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    &__body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        & > * {
+            padding: 10px;
+        }
+    }
+    &__buttons {
+        & > * {
+            margin: 0 10px;
+        }
+    }
+}

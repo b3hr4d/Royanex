@@ -1,0 +1,27 @@
+.depositOffline {
+    height: 100%;
+
+    & span {
+        display: block;
+    }
+
+    & span:nth-child(2),
+    span:nth-child(3),
+    span:nth-child(4),
+    span:nth-child(5),
+    span:nth-child(6),
+    span:nth-child(7),
+    span:nth-child(8),
+    span:nth-child(9) {
+        margin-bottom: 12px;
+    }
+    & .DatePicker__input {
+        border-radius: calc(var(--gap) * 0.5);
+    }
+    form {
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+    }
+}

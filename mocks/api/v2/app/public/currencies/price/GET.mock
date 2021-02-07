@@ -1,0 +1,41 @@
+HTTP/2 200
+Content-Type: application/json; charset=utf-8
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS, HEAD
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Credentials: true
+
+[
+  {
+    "id": "bch",
+    "buy": "1000000",
+    "sell": "1400000",
+    "max_sell": "1400000",
+    "min_sell": "1400000",
+    "fee": "0.100"
+  },
+  {
+    "id": "btc",
+    "buy": "1000000",
+    "sell": "1400000",
+    "max_sell": "1400000",
+    "min_sell": "1400000",
+    "fee": "0.100"
+  },
+  {
+    "id": "dash",
+    "buy": "1000000",
+    "sell": "1400000",
+    "max_sell": "1400000",
+    "min_sell": "1400000",
+    "fee": "0.100"
+  },
+  {
+    "id": "eth",
+    "buy": "1000000",
+    "sell": "1400000",
+    "max_sell": "1400000",
+    "min_sell": "1400000",
+    "fee": "0.100"
+  }
+]

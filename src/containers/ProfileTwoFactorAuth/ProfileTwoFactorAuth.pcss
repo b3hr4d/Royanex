@@ -1,0 +1,29 @@
+.profileTwoFactorAuth {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  & .custom-switch {
+    & label {
+      &::before {
+        cursor: pointer;
+        border: 0;
+        height: 19px;
+        width: 40px;
+        border-radius: 1rem;
+        background-color: var(--secondary-contrast-cta-color);
+      }
+      &::after {
+        cursor: pointer;
+        width: 15px;
+        height: 15px;
+        top: calc(0.25rem + 1.7px);
+        background-color: var(--side-background-color);
+      }
+    }
+  }
+  & .custom-control-input:checked ~ .custom-control-label::after {
+    right: 0;
+  }
+}

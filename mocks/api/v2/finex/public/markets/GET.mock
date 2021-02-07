@@ -1,0 +1,141 @@
+HTTP/2 200
+Content-Type: application/json; charset=utf-8
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS, HEAD
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Credentials: true
+
+[
+    {
+        "id": "btcusdt",
+        "name": "BTC/USDT",
+        "base_unit": "btc",
+        "quote_unit": "usdt",
+        "min_price": "0.01",
+        "max_price": "0.0",
+        "min_amount": "0.00001",
+        "amount_precision": 8,
+        "price_precision": 2,
+        "state": "enabled"
+    },
+    {
+        "id": "irrusdt",
+        "name": "IRR/USDT",
+        "base_unit": "irr",
+        "quote_unit": "usdt",
+        "min_price": "10.0",
+        "max_price": "10000.0",
+        "min_amount": "22.0",
+        "amount_precision": 0,
+        "price_precision": 0,
+        "state": "enabled"
+    },
+    {
+        "id": "ethbtc",
+        "name": "ETH/BTC",
+        "base_unit": "eth",
+        "quote_unit": "btc",
+        "min_price": "0.00001",
+        "max_price": "0.0",
+        "min_amount": "0.00001",
+        "amount_precision": 5,
+        "price_precision": 5,
+        "state": "enabled"
+    },
+    {
+        "id": "ltcbtc",
+        "name": "LTC/BTC",
+        "base_unit": "ltc",
+        "quote_unit": "btc",
+        "min_price": "0.00001",
+        "max_price": "0.0",
+        "min_amount": "0.00001",
+        "amount_precision": 5,
+        "price_precision": 5,
+        "state": "enabled"
+    },
+    {
+        "id": "bchusdt",
+        "name": "BCH/USDT",
+        "base_unit": "bch",
+        "quote_unit": "usdt",
+        "min_price": "0.01",
+        "max_price": "0.0",
+        "min_amount": "0.00001",
+        "amount_precision": 8,
+        "price_precision": 2,
+        "state": "enabled"
+    },
+    {
+        "id": "ltcusdt",
+        "name": "LTC/USDT",
+        "base_unit": "ltc",
+        "quote_unit": "usdt",
+        "min_price": "0.01",
+        "max_price": "0.0",
+        "min_amount": "0.00001",
+        "amount_precision": 8,
+        "price_precision": 2,
+        "state": "enabled"
+    },
+    {
+        "id": "ltceth",
+        "name": "LTC/ETH",
+        "base_unit": "ltc",
+        "quote_unit": "eth",
+        "min_price": "0.00001",
+        "max_price": "0.0",
+        "min_amount": "0.00001",
+        "amount_precision": 5,
+        "price_precision": 5,
+        "state": "enabled"
+    },
+    {
+        "id": "ethusdt",
+        "name": "ETH/USDT",
+        "base_unit": "eth",
+        "quote_unit": "usdt",
+        "min_price": "0.01",
+        "max_price": "0.0",
+        "min_amount": "0.00001",
+        "amount_precision": 8,
+        "price_precision": 2,
+        "state": "enabled"
+    },
+    {
+        "id": "dashusdt",
+        "name": "DASH/USDT",
+        "base_unit": "dash",
+        "quote_unit": "usdt",
+        "min_price": "0.01",
+        "max_price": "0.0",
+        "min_amount": "0.00001",
+        "amount_precision": 8,
+        "price_precision": 2,
+        "state": "enabled"
+    },
+    {
+        "id": "xrpusdt",
+        "name": "XRP/IRR",
+        "base_unit": "xrp",
+        "quote_unit": "irr",
+        "min_price": "0.01",
+        "max_price": "0.0",
+        "min_amount": "0.00001",
+        "amount_precision": 8,
+        "price_precision": 2,
+        "state": "enabled"
+    },
+    {
+        "id": "bnbusdt",
+        "name": "BNB/IRR",
+        "base_unit": "bnb",
+        "quote_unit": "irr",
+        "min_price": "0.01",
+        "max_price": "0.0",
+        "min_amount": "0.00001",
+        "amount_precision": 8,
+        "price_precision": 2,
+        "state": "enabled"
+    }
+]

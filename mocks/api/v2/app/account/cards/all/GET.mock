@@ -1,0 +1,14 @@
+HTTP/2 200
+Content-Type: application/json; charset=utf-8
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS, HEAD
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Credentials: true
+Access-Control-Expose-Headers: total
+Total: 28
+
+[
+{"card_num":"5859831065667833","bank_name":"بانک ملت","acc_num":"1113212311","sheba":"IR313132132132132132132131","verify":true,"created_at":"2020-08-01T20:33:25+02:00","updated_at":"2020-08-01T20:33:25+02:00"},
+{"card_num":"5859831065667833","bank":"000","acc_num":"1113212311","sheba":"IR313132132132132132132131","verify":false,"created_at":"2020-08-01T20:33:25+02:00","updated_at":"2020-08-01T20:33:25+02:00"},
+{"card_num":"5859831065667833","bank":"000","acc_num":"1113212311","sheba":"IR313132132132132132132131","verify":false,"created_at":"2020-08-01T20:33:25+02:00","updated_at":"2020-08-01T20:33:25+02:00"}
+]

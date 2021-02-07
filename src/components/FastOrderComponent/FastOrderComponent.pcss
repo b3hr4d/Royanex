@@ -1,0 +1,32 @@
+.fastOrderBody {
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        
+        & .form-group {
+            & label {
+                font-weight: bold;
+            }
+        }
+        & p span {
+            display: inline-flex;
+        }
+        & .qrCode-box {
+            display: flex;
+            justify-content: center;
+            & span {
+                display: inline-flex;
+                position: relative;
+                justify-content: center;
+                align-items: center;
+                & .cr-crypto-icon {
+                    position: absolute;
+                }
+            }
+            & canvas {
+                /* border-color: red; */
+            }
+        }
+    }
+}

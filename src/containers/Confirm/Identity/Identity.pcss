@@ -1,0 +1,41 @@
+.pg-confirm__content-identity {
+    &__forms {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+}
+
+.stateSelect, .citySelect {
+    &__control {
+        height: calc(1.5em + 1rem + 2px);
+        background-color: var(--input-background-color) !important;
+        color: var(--input-text-color) !important;
+    }
+
+    &__input {
+        color: var(--input-text-color) !important;
+    }
+
+    &__single-value {
+        color: var(--input-text-color) !important;
+    }
+
+    &__menu {
+        z-index: 99999 !important;
+        background-color: var(--input-background-color) !important;
+        color: var(--input-text-color);
+    }
+
+    &__option {
+        &--is-focused {
+            background-color: #0f3ff7!important;
+        }
+    }
+}
+
+

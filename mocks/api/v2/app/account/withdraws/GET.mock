@@ -1,0 +1,65 @@
+HTTP/2 200
+Content-Type: application/json; charset=utf-8
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS, HEAD
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Credentials: true
+
+[
+  {
+    "id":153,
+    "currency":"bch",
+    "type":"coin",
+    "amount":"0.012",
+    "fee":"0.001",
+    "blockchain_txid":"84a4e961c51605391031386538e64708ade25f2318b46466feceaf0c48a4729f",
+    "rid":"2MshcjxA43U478UVDF4QyTeydKt7wenqn4q",
+    "state":"succeed",
+    "created_at":"2018-09-11T11:39:40+02:00",
+    "updated_at":"2018-09-11T11:39:47+02:00",
+    "completed_at":"2018-09-11T11:39:47+02:00",
+    "done_at":"2018-09-11T11:39:47+02:00"
+  },
+  {
+    "id":136,
+    "currency":"bch",
+    "type":"coin",
+    "amount":"0.02",
+    "fee":"0.001",
+    "blockchain_txid":"48b80e357770cc926d5f60a622d830ed024832aa9b7ba3d0e31248abfeac3073",
+    "rid":"2N7c4eD6xjvRtn9H4jBfvynxBvEz3QfoiTk",
+    "state":"succeed",
+    "created_at":"2018-08-29T10:56:36+02:00",
+    "updated_at":"2018-08-29T10:56:49+02:00",
+    "completed_at":"2018-08-29T10:56:49+02:00",
+    "done_at":"2018-08-29T10:56:49+02:00"
+  },
+  {
+    "id":135,
+    "currency":"bch",
+    "type":"coin",
+    "amount":"0.002",
+    "fee":"0.001",
+    "blockchain_txid":"ef5b877d0133e1a72ba144935822181a0d62e2299285c1c05351352ad75ed928",
+    "rid":"2N7c4eD6xjvRtn9H4jBfvynxBvEz3QfoiTk",
+    "state":"succeed",
+    "created_at":"2018-08-28T20:14:44+02:00",
+    "updated_at":"2018-08-28T20:14:51+02:00",
+    "completed_at":"2018-08-28T20:14:51+02:00",
+    "done_at":"2018-08-28T20:14:51+02:00"
+  },
+  {
+    "id":134,
+    "currency":"bch",
+    "type":"coin",
+    "amount":"0.002",
+    "fee":"0.001",
+    "blockchain_txid":"e6db5c564758b94b1da1913205e00e94a247a283380a811cefc5ba65113b7e95",
+    "rid":"2NBQdxMAXzBZENZnjdVrVHJqbWp33yhfN7T",
+    "state":"succeed",
+    "created_at":"2018-08-28T20:03:46+02:00",
+    "updated_at":"2018-08-28T20:03:56+02:00",
+    "completed_at":"2018-08-28T20:03:56+02:00",
+    "done_at":"2018-08-28T20:03:56+02:00"
+  }
+]

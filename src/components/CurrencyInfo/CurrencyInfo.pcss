@@ -1,0 +1,61 @@
+.cr-wallet-item__single {
+    align-items: center;
+    background: transparent;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+
+    .cr-crypto-icon {
+        width: 130px;
+        margin-left: 20px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+
+    &-balance {
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px;
+        justify-content: space-around;
+    }
+
+    &__image-icon {
+        margin-left: calc(var(--gap) * 7);
+    }
+
+    .cr-wallet-item {
+        &__icon-code {
+            background: transparent;
+            color: var(--primary-text-color);
+            font-size: calc(var(--gap) * 8);
+        }
+
+        &__amount-locked {
+            margin-left: calc(var(--gap) * 8);
+        }
+
+        &__balance,
+        &__amount-locked {
+            background: transparent;
+            color: var(--table-text-color);
+            display: flex;
+            font-size: calc(var(--gap) * 3);
+            line-height: 1;
+            margin-bottom: calc(var(--gap) * 0.6);
+            padding-top: 0;
+            margin-right: 0;
+
+
+            &-amount,
+            &-locked {
+                background: transparent;
+                color: var(--wallets-balance-color);
+                font-size: calc(var(--gap) * 5);
+                font-weight: 300;
+            }
+        }
+    }
+}

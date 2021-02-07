@@ -1,0 +1,31 @@
+.depositOnline {
+    height: 100%;
+
+    &__persianAmount {
+        display: flex;
+        & span {
+            font-weight: normal;
+            margin: 0;
+        }
+    }
+    &__desc {
+        & span {
+            display: block;
+        }
+        & span:first-child {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        & span:nth-child(3) {
+            margin-bottom: 10px;
+        }
+        & span:nth-child(4), :nth-child(5), :nth-child(6), :nth-child(7) {
+            margin-bottom: 12px;
+        }
+    }
+    form {
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}

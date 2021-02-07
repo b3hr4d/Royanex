@@ -1,0 +1,173 @@
+@import "./fonts.pcss";
+@import "./themes/style.pcss";
+@import "./colors.pcss";
+
+.rtl, [dir="rtl"] {
+    :focus {
+        outline: none !important;
+    }
+
+    ::-webkit-input-placeholder {
+        text-align: right;
+    }
+
+    input:-moz-placeholder {
+        text-align: right;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+//font-family: iranSans, serif !important; text-align: right !important;
+
+    .cr-alert-icon {
+        left: inherit;
+        right: 0;
+    }
+
+    .cr-alert {
+        padding: 0 calc(var(--gap) * 6) 0 calc(var(--gap) * 3);
+    }
+
+    button {
+        font-family: iranyekan, tahoma, serif !important;
+    }
+
+    .pg-history-elem__pagination {
+        display: flex;
+        justify-content: flex-end;
+        padding: calc(var(--gap) * 2.5) 0 0;
+
+        button {
+            margin-right: calc(var(--gap) * 4.5);
+        }
+    }
+
+
+    .cr-checkbox {
+        &__checkitem {
+            left: inherit;
+            right: 0;
+
+            &::after {
+                border-width: 8px;
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                transform: rotate(0deg);
+                margin-left: 0;
+                margin-right: calc(0.7 * var(--checkbox-general-intent));
+
+            }
+        }
+    }
+
+    ::-webkit-input-placeholder {
+        font-family: iranyekan, serif !important;
+    }
+
+    ::-moz-placeholder {
+        font-family: iranyekan, serif !important;
+    }
+
+    input {
+        font-family: iranyekan, serif;
+    }
+
+    .cr-table {
+        font-size: 12px;
+        font-family: iranyekan, serif !important;
+        font-weight: 100 !important;
+    }
+
+    .pg-history-elem .cr-table-container {
+        th:first-child, td:first-child {
+            margin-right: 10px;
+            margin-left: 0;
+            text-align: right !important;
+        }
+    }
+
+    .pg-sidebar-wrapper--active {
+        right: 0 !important;
+        left: auto;
+    }
+
+    .pg-sidebar-wrapper-nav-item-img-wrapper {
+        margin-left: 14px;
+        margin-right: 0;
+    }
+
+    .pg-sidebar__toggler {
+        margin-right: 0;
+        margin-left: 18px;
+    }
+
+    #dropdown-menu-language-field img {
+        margin-right: 0;
+        margin-left: 5px;
+    }
+
+    .react-grid-item {
+        left: 3px;
+    }
+
+    .react-grid-item {
+        left: 0;
+        cursor: inherit;
+    }
+}
+
+.confirmModal {
+    .modal-content {
+        color: var(--primary-text-color) !important;
+        background-color: var(--header-background-color) !important;
+    }
+}
+
+input[type=email], input[type=password] {
+    text-align: left;
+    direction: ltr;
+}
+
+.second-font {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+@media screen and (max-width: 768px) {
+    .coinSelect {
+        &__menu {
+            z-index: 99999999 !important;
+        }
+    }
+
+    .btn {
+        font-size: 13px;
+    }
+
+    #crisp-chatbox {
+        display: none !important;
+    }
+
+    .card {
+        .card-body {
+            font-size: 13px;
+
+            .form-control {
+                font-size: 13px;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,32 @@
+.fastOrderScreen {
+    & .card {
+        border-top-left-radius: calc(var(--gap));
+        border-top-right-radius: calc(var(--gap));
+    }
+
+    & .cr-tab-panel__navigation-container {
+        .cr-tab-panel__navigation-container-navigation {
+            .cr-tab {
+                width: 100%;
+            }
+        }
+
+        margin: 0;
+    }
+
+    @media screen and (max-width: 768px) {
+        .pg-order{
+            .cr-order{
+                &--extended{
+                    flex-direction: column;
+
+                    .cr-order-input{
+                        .form-control{
+                            height: 40px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

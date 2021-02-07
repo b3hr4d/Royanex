@@ -1,0 +1,37 @@
+.profile-two-factor-auth {
+  & .row {
+    display: flex;
+    justify-content: center;
+  }
+  & .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+  &__header {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    & div {
+      position: absolute;
+      left: 0;
+    }
+  }
+  &__qrcode {
+    display: flex;
+    justify-content: center;
+  }
+  &__copy {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__copyField {
+    & .input-group > .form-control {
+      border: 1px solid var(--input-border-color);
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+    & .input-group > .custom-input {
+      flex: 1;
+    }
+  }
+}
