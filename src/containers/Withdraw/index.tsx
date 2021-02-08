@@ -7,11 +7,11 @@ import { API } from '../../api';
 import {
     Beneficiaries,
     CustomInput,
+    Decimal,
     SummaryField,
     WalletItemProps,
 } from '../../components';
-import { Decimal } from '../../components/Decimal';
-import { cleanPositiveFloatInput, precisionRegExp } from '../../helpers';
+import { cleanPositiveFloatInput } from '../../helpers';
 import { Beneficiary, RootState, selectWallets } from '../../modules';
 
 export interface WithdrawProps {
@@ -93,6 +93,17 @@ export class WithdrawComponent extends React.Component<
         this.timerId = setInterval(this.initiateTimer, 1000);
     };
 
+    public stopTimer = () => {
+        clearInterval(this.timerId);
+        this.setState({
+            sendCodeTimer: {
+                time: 120,
+                complete: true,
+                start: false,
+            },
+        });
+    };
+
     public initiateTimer = () => {
         if (this.state.sendCodeTimer.time !== 0) {
             this.setState((prevState) => ({
@@ -152,9 +163,6 @@ export class WithdrawComponent extends React.Component<
             fixed,
         } = this.props;
         const walletBalance = this.walletBalance();
-
-        // tslint:disable-next-line: no-console
-        console.log(walletBalance);
 
         const lastDividerClassName = classnames('cr-withdraw__divider', {
             'cr-withdraw__divider-one': twoFactorAuthRequired,
@@ -221,7 +229,9 @@ export class WithdrawComponent extends React.Component<
                                 content={this.renderFee()}
                             />
                             <SummaryField
-                                className="cr-withdraw__summary-field"
+                                className={`cr-withdraw__summary-field ${
+                                    Number(total) <= 0 ? 'wrong-number' : ''
+                                }`}
                                 message={
                                     withdrawTotalLabel
                                         ? withdrawTotalLabel
@@ -302,9 +312,12 @@ export class WithdrawComponent extends React.Component<
         const isPending =
             beneficiary.state && beneficiary.state.toLowerCase() === 'pending';
 
+        const walletBalance = this.walletBalance();
+
         if (beneficiary.currency !== 'fiat') {
             return (
                 Number(total) <= 0 ||
+                !(walletBalance >= 0) ||
                 !Boolean(beneficiary.id) ||
                 isPending ||
                 !Boolean(otpCode)
@@ -314,8 +327,9 @@ export class WithdrawComponent extends React.Component<
                 Number(total) <= 0 ||
                 !Boolean(beneficiary.id) ||
                 isPending ||
+                !(walletBalance >= 0) ||
                 !Boolean(otpCode) ||
-                otpCode.length !== 8
+                !Boolean(otpCode.length)
             );
         }
     };
@@ -429,26 +443,26 @@ export class WithdrawComponent extends React.Component<
 
     private handleChangeInputAmount = (value: string) => {
         const { fixed } = this.props;
+
         const convertedValue = cleanPositiveFloatInput(String(value));
 
-        if (convertedValue.match(precisionRegExp(fixed))) {
-            const amount =
-                convertedValue !== ''
-                    ? Number(parseFloat(convertedValue).toFixed(fixed))
-                    : '';
-            const total =
-                amount !== '' ? (amount - this.props.fee).toFixed(fixed) : '';
+        const amount =
+            convertedValue !== ''
+                ? Number(parseFloat(convertedValue).toFixed(fixed))
+                : '';
 
-            if (Number(total) <= 0) {
-                this.setTotal((0).toFixed(fixed));
-            } else {
-                this.setTotal(total);
-            }
+        const total =
+            amount !== '' ? (amount - this.props.fee).toFixed(fixed) : '';
 
-            this.setState({
-                amount: convertedValue,
-            });
+        if (Number(total) <= 0) {
+            this.setTotal((0).toFixed(fixed));
+        } else {
+            this.setTotal(total);
         }
+
+        this.setState({
+            amount: convertedValue,
+        });
     };
 
     private setTotal = (value: string) => {
@@ -476,9 +490,7 @@ export class WithdrawComponent extends React.Component<
             }
         }
 
-        this.setState({
-            amount: balance ? balance : '0',
-        });
+        this.handleChangeInputAmount(balance ? balance : '0');
     };
 
     private handleSendOtpCode = () => {
@@ -493,6 +505,7 @@ export class WithdrawComponent extends React.Component<
                 }
             })
             .catch((error) => {
+                this.stopTimer();
                 if (this.props.pushAlert) {
                     this.props.pushAlert({
                         message: [

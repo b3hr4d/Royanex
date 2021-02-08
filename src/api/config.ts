@@ -37,7 +37,7 @@ export const defaultConfig: Config = {
         'address',
     ],
     fastOrderUnit: 'usdt',
-    mainMarketsUnit:'rls',
+    mainMarketsUnit: 'rls',
 };
 
 export const Cryptobase = {
