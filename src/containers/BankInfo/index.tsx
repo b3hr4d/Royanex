@@ -122,19 +122,6 @@ class BankInfoComponent extends React.Component<Props, State> {
                         </strong>
                     </div>
                     <div className="card-body">
-                        <div className="warning">
-                            <span>
-                                <img
-                                    src={require('./warning-sign.svg')}
-                                    alt="warning"
-                                />
-                            </span>
-                            <span className="text-justify">
-                                {this.translate(
-                                    'page.body.profile.content.bankInfo.warning',
-                                )}
-                            </span>
-                        </div>
                         <div className="col-sm-4 col-12 mt-2 order-first order-md-last">
                             <div className="form-group">
                                 <button
