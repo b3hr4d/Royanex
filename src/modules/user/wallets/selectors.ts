@@ -8,14 +8,18 @@ export const selectWallets = (state: RootState): Wallet[] =>
 export const selectWalletsLoading = (state: RootState): boolean =>
     state.user.wallets.wallets.loading;
 
+export const selectWalletsAddressLoading = (state: RootState): boolean =>
+    state.user.wallets.wallets.addLoading;
+
 export const selectWithdrawSuccess = (state: RootState): boolean =>
     state.user.wallets.wallets.withdrawSuccess;
 
 export const selectWalletsTimestamp = (state: RootState): number | undefined =>
     state.user.wallets.wallets.timestamp;
 
-export const selectWalletsAddressError = (state: RootState): CommonError | undefined =>
-    state.user.wallets.wallets.error;
+export const selectWalletsAddressError = (
+    state: RootState,
+): CommonError | undefined => state.user.wallets.wallets.error;
 
 export const selectMobileWalletUi = (state: RootState): string =>
     state.user.wallets.wallets.mobileWalletChosen;

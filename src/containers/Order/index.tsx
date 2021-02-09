@@ -1,15 +1,12 @@
 import * as React from 'react';
-import {Spinner} from 'react-bootstrap';
-import {
-    FormattedMessage,
-    injectIntl,
-} from 'react-intl';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
-import {compose} from 'redux';
-import {Order, OrderProps, WalletItemProps} from '../../components';
-import {FilterPrice} from '../../filters';
-import {IntlProps} from '../../index';
+import { Spinner } from 'react-bootstrap';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { compose } from 'redux';
+import { Order, OrderProps, WalletItemProps } from '../../components';
+import { FilterPrice } from '../../filters';
+import { IntlProps } from '../../index';
 import {
     alertPush,
     currenciesFetch,
@@ -55,7 +52,7 @@ interface ReduxProps {
             last: string;
             buy: string;
             sell: string;
-        },
+        };
     };
     bids: string[][];
     asks: string[][];
@@ -74,7 +71,7 @@ interface StoreProps {
     askFee: number;
     bidFee: number;
     selectedCoin: {
-        id: string,
+        id: string;
     };
 }
 
@@ -98,7 +95,7 @@ interface OwnProps {
     defaultTabIndex?: number;
     mainMarket?: boolean;
     location: {
-        pathname: '',
+        pathname: '';
     };
 }
 
@@ -125,7 +122,10 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
     private orderRef;
 
     public componentDidMount() {
-        if (typeof this.props.userInfo === 'undefined' || this.props.userInfo.group === '') {
+        if (
+            typeof this.props.userInfo === 'undefined' ||
+            this.props.userInfo.group === ''
+        ) {
             this.props.userInfoFetch();
         }
 
@@ -149,7 +149,11 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
         }
 
         if (!this.props.location.pathname.includes('/trading')) {
-            const marketToSet = this.props.markets.find(el => (el.base_unit === 'btc' && el.quote_unit === window.env.mainMarketsUnit));
+            const marketToSet = this.props.markets.find(
+                (el) =>
+                    el.base_unit === 'btc' &&
+                    el.quote_unit === window.env.mainMarketsUnit,
+            );
             if (marketToSet) {
                 this.props.setCurrentMarket(marketToSet);
             }
@@ -157,7 +161,10 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
     }
 
     public componentDidUpdate() {
-        if (this.orderRef.current && this.state.width !== this.orderRef.current.clientWidth) {
+        if (
+            this.orderRef.current &&
+            this.state.width !== this.orderRef.current.clientWidth
+        ) {
             this.setState({
                 width: this.orderRef.current.clientWidth,
             });
@@ -165,7 +172,12 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
     }
 
     public UNSAFE_componentWillReceiveProps(next: Props) {
-        const {userLoggedIn, userInfo, tradingFees, currentMarket} = this.props;
+        const {
+            userLoggedIn,
+            userInfo,
+            tradingFees,
+            currentMarket,
+        } = this.props;
 
         if (userLoggedIn && !next.wallets.length) {
             this.props.walletsFetch();
@@ -177,22 +189,37 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
             });
         }
 
-        if (userInfo && userInfo.group !== '' && tradingFees && tradingFees.length && currentMarket) {
-            if (tradingFees && tradingFees.filter(e => e.market_id === currentMarket.id).length) {
-                const fees = tradingFees.find(e => (e.market_id === currentMarket.id && e.group === userInfo.group));
+        if (
+            userInfo &&
+            userInfo.group !== '' &&
+            tradingFees &&
+            tradingFees.length &&
+            currentMarket
+        ) {
+            if (
+                tradingFees &&
+                tradingFees.filter((e) => e.market_id === currentMarket.id)
+                    .length
+            ) {
+                const fees = tradingFees.find(
+                    (e) =>
+                        e.market_id === currentMarket.id &&
+                        e.group === userInfo.group,
+                );
                 this.setState({
                     askFee: fees ? Number(fees.taker) : 0,
                     bidFee: fees ? Number(fees.maker) : 0,
                 });
             } else {
-                const fees = tradingFees.find(e => (e.market_id === 'any' && e.group === userInfo.group));
+                const fees = tradingFees.find(
+                    (e) => e.market_id === 'any' && e.group === userInfo.group,
+                );
                 this.setState({
                     askFee: fees ? Number(fees.taker) : 0,
                     bidFee: fees ? Number(fees.maker) : 0,
                 });
             }
         }
-
     }
 
     public render() {
@@ -209,7 +236,7 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
             currencies,
             mainMarket,
         } = this.props;
-        const {priceLimit, bidFee, askFee} = this.state;
+        const { priceLimit, bidFee, askFee } = this.state;
 
         if (!currentMarket) {
             return null;
@@ -220,10 +247,12 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
 
         const currentTicker = marketTickers[currentMarket.id];
 
-        const defaultCurrentTicker = {last: '0'};
+        const defaultCurrentTicker = { last: '0' };
         const headerContent = (
             <div className="cr-table-header__content">
-                <div className="cr-title-component"><FormattedMessage id="page.body.trade.header.newOrder"/></div>
+                <div className="cr-title-component">
+                    <FormattedMessage id="page.body.trade.header.newOrder" />
+                </div>
             </div>
         );
 
@@ -238,8 +267,12 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
                     availableBase={this.getAvailableValue(walletBase)}
                     availableQuote={this.getAvailableValue(walletQuote)}
                     onSubmit={this.handleSubmit}
-                    priceMarketBuy={Number((currentTicker || defaultCurrentTicker).last)}
-                    priceMarketSell={Number((currentTicker || defaultCurrentTicker).last)}
+                    priceMarketBuy={Number(
+                        (currentTicker || defaultCurrentTicker).last,
+                    )}
+                    priceMarketSell={Number(
+                        (currentTicker || defaultCurrentTicker).last,
+                    )}
                     priceLimit={priceLimit}
                     to={currentMarket.base_unit}
                     handleSendType={this.getOrderType}
@@ -259,16 +292,22 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
                     askFee={askFee}
                     bidFee={bidFee}
                 />
-                {executeLoading &&
-                <div className="pg-order--loading"><Spinner animation="border" variant="primary"/></div>}
+                {executeLoading && (
+                    <div className="pg-order--loading">
+                        <Spinner animation="border" variant="primary" />
+                    </div>
+                )}
             </div>
         );
     }
 
-    private handleCoinSelectChange = e => {
-
+    private handleCoinSelectChange = (e) => {
         // tslint:disable-next-line:no-shadowed-variable
-        const marketToSet = this.props.markets.find(el => (el.base_unit === e.id && el.quote_unit === window.env.mainMarketsUnit));
+        const marketToSet = this.props.markets.find(
+            (el) =>
+                el.base_unit === e.id &&
+                el.quote_unit === window.env.mainMarketsUnit,
+        );
         if (marketToSet) {
             this.props.setCurrentMarket(marketToSet);
             this.setState({
@@ -285,19 +324,13 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
     };
 
     private handleSubmit = (value: OrderProps) => {
-        const {currentMarket} = this.props;
+        const { currentMarket } = this.props;
 
         if (!currentMarket) {
             return;
         }
 
-        const {
-            amount,
-            available,
-            orderType,
-            price,
-            type,
-        } = value;
+        const { amount, available, orderType, price, type } = value;
 
         this.props.setCurrentPrice(0);
 
@@ -308,15 +341,20 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
             ord_type: (orderType as string).toLowerCase(),
         };
 
-        const order = orderType === 'Limit' ? {...resultData, price: price.toString()} : resultData;
+        const order =
+            orderType === 'Limit'
+                ? { ...resultData, price: price.toString() }
+                : resultData;
         let orderAllowed = true;
 
         if (+resultData.volume < +currentMarket.min_amount) {
             this.props.pushAlert({
-                message: [this.translate(
-                    'error.order.create.minAmount',
-                    {amount: currentMarket.min_amount, currency: currentMarket.base_unit.toUpperCase()},
-                )],
+                message: [
+                    this.translate('error.order.create.minAmount', {
+                        amount: currentMarket.min_amount,
+                        currency: currentMarket.base_unit.toUpperCase(),
+                    }),
+                ],
                 type: 'error',
             });
 
@@ -325,10 +363,12 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
 
         if (+price < +currentMarket.min_price) {
             this.props.pushAlert({
-                message: [this.translate(
-                    'error.order.create.minPrice',
-                    {price: currentMarket.min_price, currency: currentMarket.quote_unit.toUpperCase()},
-                )],
+                message: [
+                    this.translate('error.order.create.minPrice', {
+                        price: currentMarket.min_price,
+                        currency: currentMarket.quote_unit.toUpperCase(),
+                    }),
+                ],
                 type: 'error',
             });
 
@@ -337,27 +377,32 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
 
         if (+currentMarket.max_price && +price > +currentMarket.max_price) {
             this.props.pushAlert({
-                message: [this.translate(
-                    'error.order.create.maxPrice',
-                    {price: currentMarket.max_price, currency: currentMarket.quote_unit.toUpperCase()},
-                )],
+                message: [
+                    this.translate('error.order.create.maxPrice', {
+                        price: currentMarket.max_price,
+                        currency: currentMarket.quote_unit.toUpperCase(),
+                    }),
+                ],
                 type: 'error',
             });
 
             orderAllowed = false;
         }
 
-        if ((+available < (+amount * +price) && order.side === 'buy') ||
-            (+available < +amount && order.side === 'sell')) {
+        if (
+            (+available < +amount * +price && order.side === 'buy') ||
+            (+available < +amount && order.side === 'sell')
+        ) {
             this.props.pushAlert({
-                message: [this.translate(
-                    'error.order.create.available',
-                    {
-                        available: available, currency: order.side === 'buy' ?
-                            currentMarket.quote_unit.toUpperCase() :
-                            currentMarket.base_unit.toUpperCase(),
-                    },
-                )],
+                message: [
+                    this.translate('error.order.create.available', {
+                        available: available,
+                        currency:
+                            order.side === 'buy'
+                                ? currentMarket.quote_unit.toUpperCase()
+                                : currentMarket.base_unit.toUpperCase(),
+                    }),
+                ],
                 type: 'error',
             });
 
@@ -372,7 +417,9 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
     private getWallet(currency: string, wallets: WalletItemProps[]) {
         const currencyLower = currency.toLowerCase();
 
-        return wallets.find(w => w.currency === currencyLower) as Wallet;
+        return (wallets.find(
+            (w) => w.currency === currencyLower,
+        ) as unknown) as Wallet;
     }
 
     private getOrderType = (index: number, label: string) => {
@@ -392,11 +439,16 @@ class OrderInsert extends React.PureComponent<Props, StoreProps> {
         this.props.setCurrentPrice(0);
     };
 
-    private translate = (id: string, value?: any) => this.props.intl.formatMessage({id}, {...value});
+    private translate = (id: string, value?: any) =>
+        this.props.intl.formatMessage({ id }, { ...value });
 
     private getOrderTypes = [
-        this.translate('page.body.trade.header.newOrder.content.orderType.limit'),
-        this.translate('page.body.trade.header.newOrder.content.orderType.market'),
+        this.translate(
+            'page.body.trade.header.newOrder.content.orderType.limit',
+        ),
+        this.translate(
+            'page.body.trade.header.newOrder.content.orderType.market',
+        ),
     ];
 }
 
@@ -416,13 +468,13 @@ const mapStateToProps = (state: RootState) => ({
     tradingFees: selectTradingFees(state),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     walletsFetch: () => dispatch(walletsFetch()),
-    orderExecute: payload => dispatch(orderExecuteFetch(payload)),
-    pushAlert: payload => dispatch(alertPush(payload)),
-    setCurrentPrice: payload => dispatch(setCurrentPrice(payload)),
+    orderExecute: (payload) => dispatch(orderExecuteFetch(payload)),
+    pushAlert: (payload) => dispatch(alertPush(payload)),
+    setCurrentPrice: (payload) => dispatch(setCurrentPrice(payload)),
     currenciesFetch: () => dispatch(currenciesFetch()),
-    setCurrentMarket: payload => dispatch(setCurrentMarket(payload)),
+    setCurrentMarket: (payload) => dispatch(setCurrentMarket(payload)),
     fetchMarkets: () => dispatch(marketsFetch()),
     fetchMarketTickers: () => dispatch(marketsTickersFetch()),
     fetchTradingFees: () => dispatch(tradingFeesFetch()),
@@ -436,7 +488,4 @@ const OrderComponent = compose(
     connect(mapStateToProps, mapDispatchToProps),
 )(OrderInsert) as any;
 
-
-export {
-    OrderComponent,
-};
+export { OrderComponent };

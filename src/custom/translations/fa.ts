@@ -1120,6 +1120,8 @@ export const fa = {
 
     // app
     'account.currency.doesnt_exist': 'ارز مورد نظر موجود نیست',
+    'account.currency.deposit_disabled':
+        'واریز به این کیف موقطاٌ غیرفعال می باشد.',
     'account.deposit.invalid_state': 'وضعیت واریزی صحیح نیست',
     'account.deposit.non_integer_limit':
         'مقدار ارسالی نمی‌تواند به شکل اعداد صحیح باشد',

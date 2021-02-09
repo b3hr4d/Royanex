@@ -5,14 +5,20 @@ import {
     connect,
     MapDispatchToPropsFunction,
     MapStateToProps,
-    useDispatch,
 } from 'react-redux';
-import { useHistory } from 'react-router';
+import { RouterProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { EasyQRCode } from '..';
 import { IntlProps } from '../../index';
-import { alertPush, RootState, walletsAddressFetch } from '../../modules';
+import {
+    alertPush,
+    RootState,
+    selectWalletsAddressError,
+    selectWalletsAddressLoading,
+    walletsAddressReFetch,
+} from '../../modules';
+import { CommonError } from '../../modules/types';
 import { CryptoIcon } from '../CryptoIcon';
 import { Decimal } from '../Decimal';
 
@@ -65,17 +71,25 @@ export interface WalletItemProps {
 
 interface DispatchProps {
     pushAlert: typeof alertPush;
+    fetchAddress: typeof walletsAddressReFetch;
 }
 
 // tslint:disable-next-line:no-empty-interface
-interface ReduxProps {}
+interface ReduxProps {
+    loading: boolean;
+    error: CommonError | undefined;
+}
 
-type Props = DispatchProps & WalletItemProps & ReduxProps & IntlProps;
+type Props = DispatchProps &
+    WalletItemProps &
+    ReduxProps &
+    IntlProps &
+    RouterProps;
 
 /**
  * Component for displaying information about wallet, including address and amount of currency.
  */
-const WalletItemComponent: React.FunctionComponent<Props> = (props: Props) => {
+const WalletItemComponent: React.FC<Props> = (props) => {
     const {
         currency,
         name,
@@ -86,9 +100,10 @@ const WalletItemComponent: React.FunctionComponent<Props> = (props: Props) => {
         address,
         type,
         generateAddressTriggered,
+        history,
+        loading,
+        error,
     } = props;
-    const dispatch = useDispatch();
-    const history = useHistory();
 
     const [open, setOpen] = React.useState(false);
 
@@ -105,7 +120,7 @@ const WalletItemComponent: React.FunctionComponent<Props> = (props: Props) => {
     };
 
     const handleOpen = () => {
-        dispatch(walletsAddressFetch({ currency }));
+        props.fetchAddress({ currency });
         setOpen(true);
     };
 
@@ -117,7 +132,7 @@ const WalletItemComponent: React.FunctionComponent<Props> = (props: Props) => {
     };
 
     const handleTabOpen = (newCurrency: string) => {
-        dispatch(walletsAddressFetch({ currency: newCurrency }));
+        props.fetchAddress({ currency: newCurrency });
         if (props.handleAddressTriggerChange) {
             props.handleAddressTriggerChange();
         }
@@ -138,12 +153,14 @@ const WalletItemComponent: React.FunctionComponent<Props> = (props: Props) => {
             type: 'success',
         });
     };
-
+    const translate = (id: string) => {
+        return id ? props.intl.formatMessage({ id }) : '';
+    };
     const adressCompiler = (enName: string, faName: string) => {
         const data = [{ enName, faName }];
 
         switch (enName) {
-            case 'XRP':
+            case 'TRX':
                 data.push({
                     enName: 'USDT',
                     faName: 'تتر (ERC-20)',
@@ -180,10 +197,91 @@ const WalletItemComponent: React.FunctionComponent<Props> = (props: Props) => {
 
         return tags;
     };
+    const renderBarcode = (item: { enName: string; faName: string }) => {
+        const tags = tagFinder(address);
 
+        return tags.map((tag, index) =>
+            error ? (
+                <div key={index} className="paymentscreen__body">
+                    <div
+                        className="alert alert-danger text-center second-font"
+                        role="alert"
+                        key={index}
+                    >
+                        {translate(error.message[0])}
+                    </div>
+                </div>
+            ) : loading ? (
+                <div key={index} className="paymentscreen__body">
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                    <h5>
+                        {translate(
+                            'page.body.history.withdraw.content.status.processing',
+                        )}
+                        ...
+                    </h5>
+                </div>
+            ) : tag ? (
+                index === 0 ? (
+                    <div key={tag} className="col-sm-12 text-center">
+                        <p>
+                            آدرس این کیف پول شما در کادر زیر قابل مشاهده است.
+                            برای واریز ارزهای دیجیتال به این کیف، می‌توانید از
+                            این آدرس استفاده کنید.
+                        </p>
+                        <EasyQRCode
+                            data={tag}
+                            size={160}
+                            logo={findIcon(item.enName.toUpperCase())}
+                        />
+                        <div
+                            className="alert alert-success text-center cr-wallet-item__copyaddress second-font"
+                            role="alert"
+                            onClick={() => handleCopyText(tag)}
+                        >
+                            {tag}
+                        </div>
+                    </div>
+                ) : (
+                    <div key={tag}>
+                        <p>
+                            حتماً دقت نمایید که برای واریز به این آدرس، از مقدار
+                            «تگ» زیر استفاده کنید. در غیر این صورت مبلغ برای
+                            حساب شما محسوب نمی‌شود
+                        </p>
+                        <div
+                            className="alert alert-warning text-center cr-wallet-item__copyaddress second-font"
+                            role="alert"
+                            onClick={() => handleCopyText(tag)}
+                        >
+                            {tag}
+                        </div>
+                    </div>
+                )
+            ) : (
+                <div
+                    key={index}
+                    className="d-flex flex-column justify-content-center align-items-center"
+                >
+                    <p>
+                        آدرسی وجود ندارد. لطفا برای تولید آدرس روی دکمه زیر کلیک
+                        کنید
+                    </p>
+                    <button
+                        onClick={() => handleGenerateAddressProp(currency)}
+                        className="btn btn-outline-secondary w-75"
+                        disabled={generateAddressTriggered}
+                    >
+                        <FormattedMessage id="page.body.wallets.tabs.deposit.ccy.button.generate.message" />
+                    </button>
+                </div>
+            ),
+        );
+    };
     const renderCoinDepositModal = () => {
         const addressArray = adressCompiler(currency, name);
-        const tags = tagFinder(address);
 
         return (
             <Modal show={open} onHide={handleClose}>
@@ -192,93 +290,26 @@ const WalletItemComponent: React.FunctionComponent<Props> = (props: Props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="wallet-card-body text-center-card">
-                        <Tabs
-                            defaultActiveKey={currency}
-                            id="tab-token"
-                            onSelect={handleTabOpen}
-                        >
-                            {addressArray.map((item, i) => (
-                                <Tab
-                                    eventKey={item.enName}
-                                    title={item.faName}
-                                    key={i}
-                                    className="wallet-tab-content"
-                                >
-                                    <p>
-                                        آدرس این کیف پول شما در کادر زیر قابل
-                                        مشاهده است. برای واریز ارزهای دیجیتال به
-                                        این کیف، می‌توانید از این آدرس استفاده
-                                        کنید.
-                                    </p>
-                                    {tags.map((tag, index) =>
-                                        tag ? (
-                                            index === 0 ? (
-                                                <div
-                                                    key={tag}
-                                                    className="col-sm-12 text-center"
-                                                >
-                                                    <EasyQRCode
-                                                        data={tag}
-                                                        size={160}
-                                                        logo={findIcon(
-                                                            item.enName.toUpperCase(),
-                                                        )}
-                                                    />
-                                                    <div
-                                                        className="alert alert-success text-center cr-wallet-item__copyaddress second-font"
-                                                        role="alert"
-                                                        onClick={() =>
-                                                            handleCopyText(tag)
-                                                        }
-                                                    >
-                                                        {tag}
-                                                    </div>
-                                                </div>
-                                            ) : (
-                                                <div key={tag}>
-                                                    <p>
-                                                        حتماً دقت نمایید که برای
-                                                        واریز به این آدرس، از
-                                                        مقدار «تگ» زیر استفاده
-                                                        کنید. در غیر این صورت
-                                                        مبلغ برای حساب شما محسوب
-                                                        نمی‌شود
-                                                    </p>
-                                                    <div
-                                                        className="alert alert-warning text-center cr-wallet-item__copyaddress second-font"
-                                                        role="alert"
-                                                        onClick={() =>
-                                                            handleCopyText(tag)
-                                                        }
-                                                    >
-                                                        {tag}
-                                                    </div>
-                                                </div>
-                                            )
-                                        ) : (
-                                            <div
-                                                key={index}
-                                                className="d-flex flex-column justify-content-center align-items-center"
-                                            >
-                                                <p>
-                                                    آدرسی وجود ندارد. لطفا برای
-                                                    تولید آدرس روی دکمه زیر کلیک
-                                                    کنید
-                                                </p>
-                                                <button
-                                                    className="btn btn-outline-secondary w-75"
-                                                    disabled={
-                                                        generateAddressTriggered
-                                                    }
-                                                >
-                                                    <FormattedMessage id="page.body.wallets.tabs.deposit.ccy.button.generate.message" />
-                                                </button>
-                                            </div>
-                                        ),
-                                    )}
-                                </Tab>
-                            ))}
-                        </Tabs>
+                        {addressArray.length === 1 ? (
+                            renderBarcode(addressArray[0])
+                        ) : (
+                            <Tabs
+                                defaultActiveKey={currency}
+                                id="tab-token"
+                                onSelect={handleTabOpen}
+                            >
+                                {addressArray.map((item, i) => (
+                                    <Tab
+                                        eventKey={item.enName}
+                                        title={item.faName}
+                                        key={i}
+                                        className="wallet-tab-content"
+                                    >
+                                        {renderBarcode(item)}
+                                    </Tab>
+                                ))}
+                            </Tabs>
+                        )}
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
@@ -288,6 +319,9 @@ const WalletItemComponent: React.FunctionComponent<Props> = (props: Props) => {
                 </Modal.Footer>
             </Modal>
         );
+    };
+    const handleGenerateAddressProp = (curr: string) => {
+        props.fetchAddress({ currency: curr });
     };
 
     const handleFiatDepositLink = () => {
@@ -307,12 +341,6 @@ const WalletItemComponent: React.FunctionComponent<Props> = (props: Props) => {
     const handleDetailsLink = () => {
         history.push(`/wallet/details/${currency.toLowerCase()}`);
     };
-
-    // const handleGenerateAddressProp = () => {
-    //     if (props.handleGenerateAddress) {
-    //         props.handleGenerateAddress(currency.toLowerCase());
-    //     }
-    // };
 
     if (dashboard) {
         return (
@@ -450,12 +478,16 @@ const WalletItemComponent: React.FunctionComponent<Props> = (props: Props) => {
 
 const mapStateToProps: MapStateToProps<ReduxProps, {}, RootState> = (
     state,
-) => ({});
+) => ({
+    loading: selectWalletsAddressLoading(state),
+    error: selectWalletsAddressError(state),
+});
 
 const mapDispatchToProps: MapDispatchToPropsFunction<DispatchProps, {}> = (
     dispatch,
 ) => ({
     pushAlert: (copied) => dispatch(alertPush(copied)),
+    fetchAddress: (address) => dispatch(walletsAddressReFetch(address)),
 });
 
 export const WalletItem = compose(

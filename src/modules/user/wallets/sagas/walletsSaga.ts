@@ -14,11 +14,19 @@ const currenciesOptions: RequestOptions = {
 
 export function* walletsSaga() {
     try {
-        const accounts = yield call(API.get(walletsOptions), '/account/balances');
-        const currencies = yield call(API.get(currenciesOptions), '/public/currencies');
+        const accounts = yield call(
+            API.get(walletsOptions),
+            '/account/balances',
+        );
+        const currencies = yield call(
+            API.get(currenciesOptions),
+            '/public/currencies',
+        );
 
-        const accountsByCurrencies = currencies.map(currency => {
-            let walletInfo = accounts.find(wallet => wallet.currency === currency.id);
+        const accountsByCurrencies = currencies.map((currency) => {
+            let walletInfo = accounts.find(
+                (wallet) => wallet.currency === currency.id,
+            );
 
             if (!walletInfo) {
                 walletInfo = {
@@ -26,7 +34,7 @@ export function* walletsSaga() {
                 };
             }
 
-            return ({
+            return {
                 ...walletInfo,
                 name: currency.name,
                 explorerTransaction: currency!.explorer_transaction,
@@ -35,12 +43,18 @@ export function* walletsSaga() {
                 type: currency!.type,
                 fixed: currency!.precision,
                 iconUrl: currency.icon_url,
-            });
+            };
         });
 
         yield put(walletsData(accountsByCurrencies));
     } catch (error) {
         yield put(walletsError(error));
-        yield put(alertPush({message: error.message, code: error.code, type: 'error'}));
+        yield put(
+            alertPush({
+                message: error.message,
+                code: error.code,
+                type: 'error',
+            }),
+        );
     }
 }

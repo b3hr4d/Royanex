@@ -1,6 +1,9 @@
+import { CommonError } from '../../types';
+
 export interface Wallet {
     balance?: string;
     currency: string;
+    loading: boolean;
     name: string;
     type: 'fiat' | 'coin';
     fee: number;
@@ -11,7 +14,15 @@ export interface Wallet {
     fixed: number;
     iconUrl?: string;
 }
-
+export interface WalletListDetails {
+    loading: boolean;
+    withdrawSuccess: boolean;
+    error?: CommonError;
+    mobileWalletChosen: string;
+    selectedWalletCurrency: string;
+    selectedWalletAddress: string;
+    timestamp?: number;
+}
 export interface WalletAddress {
     address: string;
     currency: string;

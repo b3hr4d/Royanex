@@ -6,6 +6,7 @@ import {
     WALLETS_ADDRESS_DATA_WS,
     WALLETS_ADDRESS_ERROR,
     WALLETS_ADDRESS_FETCH,
+    WALLETS_ADDRESS_REFETCH,
     WALLETS_DATA,
     WALLETS_DATA_WS,
     WALLETS_ERROR,
@@ -24,6 +25,7 @@ export interface WalletsState {
     wallets: {
         list: Wallet[];
         loading: boolean;
+        addLoading: boolean;
         withdrawSuccess: boolean;
         error?: CommonError;
         mobileWalletChosen: string;
@@ -37,6 +39,7 @@ export const initialWalletsState: WalletsState = {
     wallets: {
         list: [],
         loading: false,
+        addLoading: true,
         withdrawSuccess: false,
         mobileWalletChosen: '',
         selectedWalletCurrency: '',
@@ -54,6 +57,14 @@ const walletsListReducer = (
             return {
                 ...state,
                 loading: true,
+                timestamp: Math.floor(Date.now() / 1000),
+            };
+        case WALLETS_ADDRESS_REFETCH:
+            return {
+                ...state,
+                selectedWalletAddress: '',
+                addLoading: true,
+                error: undefined,
                 timestamp: Math.floor(Date.now() / 1000),
             };
         case WALLETS_WITHDRAW_CCY_FETCH:
@@ -124,6 +135,7 @@ const walletsListReducer = (
                 return {
                     ...state,
                     loading: false,
+                    addLoading: false,
                     selectedWalletCurrency: action.payload.currency,
                     selectedWalletAddress: action.payload.address,
                 };
@@ -166,6 +178,7 @@ const walletsListReducer = (
             return {
                 ...state,
                 loading: false,
+                addLoading: false,
                 error: action.payload,
             };
 
@@ -186,6 +199,7 @@ export const walletsReducer = (
         case WALLETS_DATA_WS:
         case WALLETS_ERROR:
         case WALLETS_ADDRESS_FETCH:
+        case WALLETS_ADDRESS_REFETCH:
         case WALLETS_ADDRESS_DATA:
         case WALLETS_ADDRESS_DATA_WS:
         case WALLETS_ADDRESS_ERROR:
@@ -208,6 +222,7 @@ export const walletsReducer = (
                 wallets: {
                     list: [],
                     loading: false,
+                    addLoading: true,
                     withdrawSuccess: false,
                     mobileWalletChosen: '',
                     selectedWalletCurrency: '',

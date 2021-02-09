@@ -17,12 +17,20 @@ export function* walletsAddressSaga(action: WalletsAddressFetch) {
         const currency = action.payload.currency.toLocaleLowerCase();
         const url = `/account/deposit_address/${currency}`;
         const { address } = yield call(API.get(walletsAddressOptions), url);
-        yield put(walletsAddressData({
-            address,
-            currency,
-        }));
+        yield put(
+            walletsAddressData({
+                address,
+                currency,
+            }),
+        );
     } catch (error) {
         yield put(walletsAddressError(error));
-        yield put(alertPush({message: error.message, code: error.code, type: 'error'}));
+        yield put(
+            alertPush({
+                message: error.message,
+                code: error.code,
+                type: 'error',
+            }),
+        );
     }
 }

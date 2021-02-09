@@ -1,7 +1,14 @@
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import {
+    RootState,
+    selectWalletAddress,
+    selectWallets,
+    walletsAddressReFetch,
+} from '../../modules';
 import { alertPush } from '../../modules/public/alert';
 import { CryptoIcon } from '../CryptoIcon';
 import { Decimal } from '../Decimal';
@@ -10,7 +17,7 @@ import { WalletItemProps } from '../WalletItem';
 
 export interface CurrencyInfoProps {
     wallet: WalletItemProps;
-    address?: string;
+    address: string;
 }
 
 interface CurrencyIconProps {
@@ -18,9 +25,14 @@ interface CurrencyIconProps {
     currency: string;
 }
 
-const CurrencyIcon: React.FunctionComponent<CurrencyIconProps> = (
-    props: CurrencyIconProps,
-) => {
+interface DispatchProps {
+    pushAlert: typeof alertPush;
+    fetchAddress: typeof walletsAddressReFetch;
+}
+
+type Props = CurrencyInfoProps & DispatchProps;
+
+const CurrencyIcon: React.FunctionComponent<CurrencyIconProps> = (props) => {
     return props.icon ? (
         <img
             alt=""
@@ -40,9 +52,7 @@ const findIcon = (code: string): string => {
     }
 };
 
-const CurrencyInfo: React.FunctionComponent<CurrencyInfoProps> = (
-    props: CurrencyInfoProps,
-) => {
+const CurrencyInfoComponent: React.FunctionComponent<Props> = (props) => {
     const balance =
         props.wallet && props.wallet.balance
             ? props.wallet.balance.toString()
@@ -55,7 +65,6 @@ const CurrencyInfo: React.FunctionComponent<CurrencyInfoProps> = (
     const selectedFixed = (props.wallet || { fixed: 0 }).fixed;
     const stringLocked = lockedAmount ? lockedAmount.toString() : undefined;
     const iconUrl = props.wallet ? props.wallet.iconUrl : null;
-    const dispatch = useDispatch();
 
     // tslint:disable-next-line:prefer-template
     const copyAddress: string = props.address || '';
@@ -69,12 +78,10 @@ const CurrencyInfo: React.FunctionComponent<CurrencyInfoProps> = (
         document.execCommand('copy');
         input.remove();
 
-        dispatch(
-            alertPush({
-                message: ['page.body.wallets.tabs.deposit.ccy.success'],
-                type: 'success',
-            }),
-        );
+        props.pushAlert({
+            message: ['page.body.wallets.tabs.deposit.ccy.success'],
+            type: 'success',
+        });
     };
 
     return (
@@ -141,4 +148,18 @@ const CurrencyInfo: React.FunctionComponent<CurrencyInfoProps> = (
     );
 };
 
-export { CurrencyInfo };
+const mapStateToProps = (state: RootState) => ({
+    address: selectWalletAddress(state),
+    wallets: selectWallets(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    pushAlert: (copied) => dispatch(alertPush(copied)),
+    fetchAddress: (address) => dispatch(walletsAddressReFetch(address)),
+});
+
+export const CurrencyInfo = compose(
+    injectIntl,
+    withRouter,
+    connect(mapStateToProps, mapDispatchToProps),
+)(CurrencyInfoComponent) as any; // tslint:disable-line

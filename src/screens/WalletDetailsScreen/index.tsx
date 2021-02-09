@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {injectIntl} from 'react-intl';
-import {connect} from 'react-redux';
-import {RouterProps} from 'react-router';
-import {withRouter} from 'react-router-dom';
-import {compose} from 'redux';
-import {CoinDetails, FiatDetails, WalletItemProps} from '../../components';
-import {IntlProps} from '../../index';
+import { injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { RouterProps } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { CoinDetails, FiatDetails, WalletItemProps } from '../../components';
+import { IntlProps } from '../../index';
 import {
     RootState,
     selectWalletAddress,
@@ -13,7 +13,6 @@ import {
     walletsAddressFetch,
     walletsFetch,
 } from '../../modules';
-
 
 interface ReduxProps {
     selectedWalletAddress: string;
@@ -29,11 +28,15 @@ interface ComponentProps {
     match: {
         params: {
             type: string;
-        },
+        };
     };
 }
 
-type Props = ReduxProps & DispatchProps & RouterProps & IntlProps & ComponentProps ;
+type Props = ReduxProps &
+    DispatchProps &
+    RouterProps &
+    IntlProps &
+    ComponentProps;
 
 class WalletDetails extends React.Component<Props> {
     constructor(props) {
@@ -47,11 +50,15 @@ class WalletDetails extends React.Component<Props> {
 
     public render() {
         const type = this.props.match.params.type;
-        const {wallets, selectedWalletAddress} = this.props;
+        const { wallets, selectedWalletAddress } = this.props;
         // @ts-ignore
-        const wallet = wallets.filter(e => (e.currency === type.toLowerCase()));
-        if (wallets.length && selectedWalletAddress === '' && wallet[0].type !== 'fiat') {
-            this.props.fetchAddress({currency: type.toLowerCase()});
+        const wallet = wallets.filter((e) => e.currency === type.toLowerCase());
+        if (
+            wallets.length &&
+            selectedWalletAddress === '' &&
+            wallet[0].type !== 'fiat'
+        ) {
+            this.props.fetchAddress({ currency: type.toLowerCase() });
         }
 
         return (
@@ -59,18 +66,17 @@ class WalletDetails extends React.Component<Props> {
                 <div className="container">
                     <div className="row mt-4">
                         <div className="col-sm-12">
-                            {
-                                type === 'USD'
-                                    ? <FiatDetails wallet={wallet} currency={type}/>
-                                    : <CoinDetails wallet={wallet} currency={type} address={selectedWalletAddress}/>
-                            }
+                            {type === 'USD' ? (
+                                <FiatDetails wallet={wallet} currency={type} />
+                            ) : (
+                                <CoinDetails wallet={wallet} currency={type} />
+                            )}
                         </div>
                     </div>
                 </div>
             </div>
         );
     }
-
 }
 
 const mapStateToProps = (state: RootState): ReduxProps => ({
@@ -78,9 +84,9 @@ const mapStateToProps = (state: RootState): ReduxProps => ({
     wallets: selectWallets(state),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     fetchWallets: () => dispatch(walletsFetch()),
-    fetchAddress: ({currency}) => dispatch(walletsAddressFetch({currency})),
+    fetchAddress: ({ currency }) => dispatch(walletsAddressFetch({ currency })),
 });
 
 export const WalletDetailsScreen = compose(
