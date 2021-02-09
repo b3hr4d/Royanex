@@ -26,12 +26,11 @@
     width: 250px;
     z-index: 99990;
     direction: rtl;
-    transition: all .5s;
+    transition: all 0.5s;
     color: var(--sidebar-text-color);
     text-decoration: none;
     overflow-y: scroll;
     scrollbar-width: none;
-
 
     .show > .btn-primary.dropdown-toggle {
         background-color: var(--primary-cta-color) !important;
@@ -107,7 +106,9 @@
             }
 
             &:hover {
-                background-color: var(--sidebar-item-background-color-hover) !important;
+                background-color: var(
+                    --sidebar-item-background-color-hover
+                ) !important;
                 color: var(--sidebar-item-text-color-hover);
 
                 path {
@@ -173,7 +174,9 @@
             }
 
             &:hover {
-                background-color: var(--sidebar-item-background-color-hover) !important;
+                background-color: var(
+                    --sidebar-item-background-color-hover
+                ) !important;
                 color: var(--sidebar-item-text-color-hover);
 
                 .pg-sidebar-wrapper-nav-item-img {
@@ -223,7 +226,9 @@
             width: 100%;
 
             &:hover {
-                background-color: var(--sidebar-item-background-color-hover) !important;
+                background-color: var(
+                    --sidebar-item-background-color-hover
+                ) !important;
 
                 path {
                     fill: var(--sidebar-item-text-color-hover);
@@ -258,7 +263,7 @@
         cursor: pointer;
         display: block;
         height: 30px;
-        left: 25px;
+        right: 25px;
         margin-right: 0;
         position: absolute;
         top: 15px;

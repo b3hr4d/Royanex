@@ -206,6 +206,7 @@ export const fa = {
     'page.body.wallets.tabs.deposit.ccy.message.address': 'آدرس واریزی',
     'page.body.wallets.tabs.deposit.ccy.message.button': 'کپی',
     'page.body.wallets.tabs.deposit.ccy.message.success': 'آدرس کپی شد',
+    'page.body.wallets.tabs.deposit.ccy.success': 'کپی شد',
     'page.body.wallets.tabs.deposit.ccy.message.error':
         'در حال ایجاد آدرس واریزی',
     'page.body.wallets.tabs.deposit.ccy.button.generate': 'ایجاد آدرس جدید',

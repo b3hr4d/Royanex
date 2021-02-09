@@ -71,7 +71,7 @@ header {
             text-decoration: none;
 
             &:hover {
-                color: var(--header-toggle-menu-icon)
+                color: var(--header-toggle-menu-icon);
             }
         }
 
@@ -146,10 +146,6 @@ header {
         justify-content: none;
         position: relative;
 
-        &__logo {
-            display: none;
-        }
-
         &__location {
             color: var(--color-white);
             display: block;
@@ -158,7 +154,19 @@ header {
             text-decoration: none;
             text-transform: uppercase;
         }
-
+        &__content {
+            align-items: center;
+            box-shadow: 1px 1px 5px var(--shadow-color-level-2);
+            display: flex;
+            &__wrapper {
+                display: block;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                border-bottom: 1px solid var(--sidebar-border-color);
+                padding: 5px 0;
+            }
+        }
         &--active {
             position: static;
 

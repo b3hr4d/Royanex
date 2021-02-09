@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {WalletItem, WalletItemProps} from '../WalletItem';
+import { WalletItem, WalletItemProps } from '../WalletItem';
 
 export interface WalletListProps {
     walletItems: WalletItemProps[];
@@ -27,11 +27,9 @@ export interface WalletListProps {
      * Callback function which is invoked whenever wallet item is clicked
      */
     onActiveIndexChange?(index: number): void;
-
 }
 
 const removeAlt = (str: string): string => str.replace('-alt', '');
-
 
 /**
  * Component to display list of user wallets. It is scrollable and reacts on WalletItem click.
@@ -53,7 +51,8 @@ export class WalletList extends React.Component<WalletListProps> {
                 type: props.type,
                 generateAddressTriggered: this.props.generateAddressTriggered,
                 handleGenerateAddress: this.props.handleGenerateAddress,
-                handleAddressTriggerChange: this.props.handleAddressTriggerChange,
+                handleAddressTriggerChange: this.props
+                    .handleAddressTriggerChange,
             }}
         />
     );
@@ -67,8 +66,6 @@ export class WalletList extends React.Component<WalletListProps> {
     };
 
     public render() {
-        return (
-            this.props.walletItems.map(this.makeWalletItem)
-        );
+        return this.props.walletItems.map(this.makeWalletItem);
     }
 }

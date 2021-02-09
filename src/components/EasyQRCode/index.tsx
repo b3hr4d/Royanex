@@ -2,7 +2,6 @@
 import QRCode from 'easyqrcodejs';
 import * as React from 'react';
 
-
 interface Props {
     size?: number;
     logo?: string;
@@ -19,7 +18,7 @@ class EasyQRCode extends React.Component<Props> {
 
     private readonly qrCodeRef: React.RefObject<HTMLInputElement> = React.createRef();
 
-    public UNSAFE_componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any) {
+    public UNSAFE_componentWillReceiveProps(nextProps: Readonly<Props>) {
         if (nextProps.data !== this.props.data) {
             this.qrCode.clear();
             const options = {
@@ -51,4 +50,4 @@ class EasyQRCode extends React.Component<Props> {
     }
 }
 
-export {EasyQRCode};
+export { EasyQRCode };

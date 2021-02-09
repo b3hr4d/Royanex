@@ -1,5 +1,5 @@
-import {CommonError} from '../../types';
-import {WalletsAction} from './actions';
+import { CommonError } from '../../types';
+import { WalletsAction } from './actions';
 import {
     SET_MOBILE_WALLET_UI,
     WALLETS_ADDRESS_DATA,
@@ -18,7 +18,7 @@ import {
     WALLETS_WITHDRAW_RLS_ERROR,
     WALLETS_WITHDRAW_RLS_FETCH,
 } from './constants';
-import {Wallet} from './types';
+import { Wallet } from './types';
 
 export interface WalletsState {
     wallets: {
@@ -44,7 +44,10 @@ export const initialWalletsState: WalletsState = {
     },
 };
 
-const walletsListReducer = (state: WalletsState['wallets'], action: WalletsAction): WalletsState['wallets'] => {
+const walletsListReducer = (
+    state: WalletsState['wallets'],
+    action: WalletsAction,
+): WalletsState['wallets'] => {
     switch (action.type) {
         case WALLETS_ADDRESS_FETCH:
         case WALLETS_FETCH:
@@ -70,19 +73,27 @@ const walletsListReducer = (state: WalletsState['wallets'], action: WalletsActio
             let updatedList = state.list;
 
             if (state.list.length) {
-                updatedList = state.list.map(wallet => {
+                updatedList = state.list.map((wallet) => {
                     let updatedWallet = wallet;
-                    const payloadCurrencies = Object.keys(action.payload.balances);
+                    const payloadCurrencies = Object.keys(
+                        action.payload.balances,
+                    );
 
                     if (payloadCurrencies.length) {
-                        payloadCurrencies.some(value => {
+                        payloadCurrencies.some((value) => {
                             const targetWallet = action.payload.balances[value];
 
                             if (value === wallet.currency) {
                                 updatedWallet = {
                                     ...updatedWallet,
-                                    balance: targetWallet && targetWallet[0] ? targetWallet[0] : updatedWallet.balance,
-                                    locked: targetWallet && targetWallet[1] ? targetWallet[1] : updatedWallet.locked,
+                                    balance:
+                                        targetWallet && targetWallet[0]
+                                            ? targetWallet[0]
+                                            : updatedWallet.balance,
+                                    locked:
+                                        targetWallet && targetWallet[1]
+                                            ? targetWallet[1]
+                                            : updatedWallet.locked,
                                 };
 
                                 return true;
@@ -104,7 +115,9 @@ const walletsListReducer = (state: WalletsState['wallets'], action: WalletsActio
         }
         case WALLETS_ADDRESS_DATA: {
             const walletIndex = state.list.findIndex(
-                wallet => wallet.currency.toLowerCase() === action.payload.currency.toLowerCase(),
+                (wallet) =>
+                    wallet.currency.toLowerCase() ===
+                    action.payload.currency.toLowerCase(),
             );
 
             if (walletIndex !== -1) {
@@ -157,13 +170,16 @@ const walletsListReducer = (state: WalletsState['wallets'], action: WalletsActio
             };
 
         case SET_MOBILE_WALLET_UI:
-            return {...state, mobileWalletChosen: action.payload};
+            return { ...state, mobileWalletChosen: action.payload };
         default:
             return state;
     }
 };
 
-export const walletsReducer = (state = initialWalletsState, action: WalletsAction): WalletsState => {
+export const walletsReducer = (
+    state = initialWalletsState,
+    action: WalletsAction,
+): WalletsState => {
     switch (action.type) {
         case WALLETS_FETCH:
         case WALLETS_DATA:
@@ -180,7 +196,7 @@ export const walletsReducer = (state = initialWalletsState, action: WalletsActio
         case WALLETS_WITHDRAW_RLS_ERROR:
         case SET_MOBILE_WALLET_UI:
         case WALLETS_WITHDRAW_CCY_ERROR:
-            const walletsListState = {...state.wallets};
+            const walletsListState = { ...state.wallets };
 
             return {
                 ...state,

@@ -3,8 +3,8 @@ import { NumberToWords } from 'persian-tools2';
 import * as React from 'react';
 // import {Modal} from 'react-bootstrap';
 // tslint:disable-next-line:no-duplicate-imports
-import { Spinner } from 'react-bootstrap';
-import { Pie } from 'react-chartjs-2';
+// import { Spinner } from 'react-bootstrap';
+// import { Pie } from 'react-chartjs-2';
 import { injectIntl } from 'react-intl';
 import { connect, MapDispatchToProps } from 'react-redux';
 import { RouterProps } from 'react-router';
@@ -524,63 +524,63 @@ class DashboardComponent extends React.Component<Props, WalletsState> {
             chartColor.push(color[label.toString()]);
         }
 
-        const fontColor = getComputedStyle(
-            document.documentElement,
-        ).getPropertyValue('--sidebar-text-color');
+        // const fontColor = getComputedStyle(
+        //     document.documentElement,
+        // ).getPropertyValue('--sidebar-text-color');
 
-        const data = {
-            labels: this.state.chartLabel,
-            datasets: [
-                {
-                    borderWidth: 1,
-                    backgroundColor: chartColor,
-                    borderColor: chartColor,
-                    data: this.state.chartData,
-                },
-            ],
-        };
+        // const data = {
+        //     labels: this.state.chartLabel,
+        //     datasets: [
+        //         {
+        //             borderWidth: 1,
+        //             backgroundColor: chartColor,
+        //             borderColor: chartColor,
+        //             data: this.state.chartData,
+        //         },
+        //     ],
+        // };
 
-        const options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            aspectRatio: 4,
-            legend: {
-                display: true,
-                position: 'left',
-                labels: {
-                    fontColor: fontColor,
-                    usePointStyle: true,
-                },
-            },
-            scales: {
-                xAxes: [
-                    {
-                        ticks: {
-                            display: false,
-                        },
-                        gridLines: {
-                            display: false,
-                        },
-                    },
-                ],
-                yAxes: [
-                    {
-                        ticks: {
-                            display: false,
-                        },
-                        gridLines: {
-                            display: false,
-                        },
-                    },
-                ],
-            },
-        };
+        // const options = {
+        //     responsive: true,
+        //     maintainAspectRatio: false,
+        //     aspectRatio: 4,
+        //     legend: {
+        //         display: true,
+        //         position: 'left',
+        //         labels: {
+        //             fontColor: fontColor,
+        //             usePointStyle: true,
+        //         },
+        //     },
+        //     scales: {
+        //         xAxes: [
+        //             {
+        //                 ticks: {
+        //                     display: false,
+        //                 },
+        //                 gridLines: {
+        //                     display: false,
+        //                 },
+        //             },
+        //         ],
+        //         yAxes: [
+        //             {
+        //                 ticks: {
+        //                     display: false,
+        //                 },
+        //                 gridLines: {
+        //                     display: false,
+        //                 },
+        //             },
+        //         ],
+        //     },
+        // };
 
         return (
             <div className="card">
                 <div className="card-header text-right">کیف‌های شما</div>
                 <div className="card-body">
-                    {this.state.chartData.length ? (
+                    {/* {this.state.chartData.length ? (
                         <div className="pb-2 px-4 mt-5">
                             <Pie
                                 data={data}
@@ -593,7 +593,7 @@ class DashboardComponent extends React.Component<Props, WalletsState> {
                         <div className="text-center my-4">
                             <Spinner animation="border" variant="primary" />
                         </div>
-                    )}
+                    )} */}
                     <table className="table table-striped table-bordered datatable table-sm">
                         <thead>
                             <tr className="text-center">
