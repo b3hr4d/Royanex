@@ -160,16 +160,10 @@ const WalletItemComponent: React.FC<Props> = (props) => {
         const data = [{ enName, faName }];
 
         switch (enName) {
-            case 'TRX':
-                data.push({
-                    enName: 'USDT',
-                    faName: 'تتر (ERC-20)',
-                });
-                break;
-            case 'ETH':
+            case 'USDT':
                 data.push({
                     enName: 'USDTT',
-                    faName: 'USDT TRC20',
+                    faName: 'تتر (ERC-20)',
                 });
                 break;
             default:

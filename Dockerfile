@@ -1,4 +1,4 @@
-FROM quay.io/imaster/node AS builder
+FROM quay.io/imaster/node:14.15.4-slim AS builder
 
 WORKDIR /home/node
 COPY --chown=node:node . .
