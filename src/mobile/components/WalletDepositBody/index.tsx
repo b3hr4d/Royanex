@@ -60,7 +60,7 @@ const WalletDepositBodyComponent = (props) => {
         if (wallet.type === 'coin') {
             return (
                 <React.Fragment>
-                    <CurrencyInfo wallet={wallet} />
+                    <CurrencyInfo wallet={wallet} currency={wallet.name} />
                     {currencyItem && !currencyItem.deposit_enabled ? (
                         <Blur
                             className={blurCryptoClassName}

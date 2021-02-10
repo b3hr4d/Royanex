@@ -84,7 +84,6 @@ class History extends React.Component<Props, State> {
 
     private renderTabs = () => {
         const { tab } = this.state;
-        console.log(this.props.match.params);
         const currency =
             this.props.match.params.type !== undefined
                 ? this.props.match.params.type.toLowerCase()

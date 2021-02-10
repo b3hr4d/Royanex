@@ -11,34 +11,25 @@ export interface CoinDetailsProps extends RouteComponentProps {
 }
 
 const CoinDetailsComnponent: React.FC<CoinDetailsProps> = (props) => {
-    const { wallet, currency, history } = props;
+    const { wallet, currency, history, location } = props;
     const adressCompiler = () => {
         const data = [
-            { enName: currency, faName: wallet[0] ? wallet[0].name : '' },
+            {
+                enName: currency,
+                faName: wallet[0] ? wallet[0].name : 'loading',
+            },
         ];
         switch (currency) {
-            case 'trx':
+            case 'usdtt':
                 data.push({
                     enName: 'usdt',
                     faName: 'تتر (ERC-20)',
                 });
                 break;
-            case 'eth':
+            case 'usdt':
                 data.push({
                     enName: 'usdtt',
                     faName: 'USDT TRC20',
-                });
-                break;
-            case 'usdt':
-                data.push({
-                    enName: 'trx',
-                    faName: 'Tron',
-                });
-                break;
-            case 'usdtt':
-                data.push({
-                    enName: 'eth',
-                    faName: 'اتریوم',
                 });
                 break;
             default:
@@ -49,12 +40,30 @@ const CoinDetailsComnponent: React.FC<CoinDetailsProps> = (props) => {
     };
     const addressArray = adressCompiler();
 
-    return (
-        <Tabs
-            defaultActiveKey={currency}
-            id="tab-token"
-            onSelect={(e) => history.push(e)}
-        >
+    const tabChanger = (e) => {
+        const currentPage = location.pathname.split('/').pop()!.toLowerCase();
+        if (e !== currentPage) {
+            history.push(e);
+            history.go(0);
+        }
+    };
+    const renderCoins = (item) => (
+        <div className="row justify-content-center">
+            <div className="col-lg-10 col-sm-12">
+                <div className="card currencyInfo">
+                    <CurrencyInfo wallet={wallet[0]} currency={item.enName} />
+                </div>
+            </div>
+            <div className="col-sm-12 mt-4">
+                <HistoryScreen />
+            </div>
+        </div>
+    );
+
+    return addressArray.length === 1 ? (
+        renderCoins(addressArray[0])
+    ) : (
+        <Tabs defaultActiveKey={currency} id="tab-token" onSelect={tabChanger}>
             {addressArray.map((item, i) => (
                 <Tab
                     eventKey={item.enName}
@@ -62,16 +71,7 @@ const CoinDetailsComnponent: React.FC<CoinDetailsProps> = (props) => {
                     key={i}
                     className="wallet-tab-content"
                 >
-                    <div className="row justify-content-center">
-                        <div className="col-lg-10 col-sm-12">
-                            <div className="card currencyInfo">
-                                <CurrencyInfo currency={item.enName} />
-                            </div>
-                        </div>
-                        <div className="col-sm-12 mt-4">
-                            <HistoryScreen />
-                        </div>
-                    </div>
+                    {renderCoins(item)}
                 </Tab>
             ))}
         </Tabs>

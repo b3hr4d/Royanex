@@ -160,6 +160,12 @@ const WalletItemComponent: React.FC<Props> = (props) => {
         const data = [{ enName, faName }];
 
         switch (enName) {
+            case 'USDTT':
+                data.push({
+                    enName: 'USDT',
+                    faName: 'تتر (ERC-20)',
+                });
+                break;
             case 'USDT':
                 data.push({
                     enName: 'USDTT',
@@ -359,7 +365,7 @@ const WalletItemComponent: React.FC<Props> = (props) => {
                     </div>
                 </td>
                 <td className="text-left">
-                    {currency === 'RLS' ? (
+                    {currency.toUpperCase() === 'RLS' ? (
                         <>
                             {balance && Number(balance) !== 0 ? (
                                 <Decimal fixed={fixed}>
@@ -407,7 +413,7 @@ const WalletItemComponent: React.FC<Props> = (props) => {
                         </div>
                     </td>
                     <td className="text-left">
-                        {currency === 'RLS' ? (
+                        {currency.toUpperCase() === 'RLS' ? (
                             <>
                                 {balance && Number(balance) !== 0 ? (
                                     <Decimal fixed={fixed}>
@@ -454,7 +460,7 @@ const WalletItemComponent: React.FC<Props> = (props) => {
                         >
                             جزئیات
                         </button>
-                        {currency !== 'RLS' && (
+                        {currency.toUpperCase() !== 'RLS' && (
                             <button
                                 className="btn btn-outline-warning mx-2"
                                 onClick={handleMarketLink}

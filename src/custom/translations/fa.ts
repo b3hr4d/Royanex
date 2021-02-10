@@ -1,6 +1,7 @@
 import { nationalitiesNames } from '../../translations/nationalities';
 
 export const fa = {
+    unknown: 'خطایی رخ داده است!',
     'page.header.toolbar.dashboard': 'داشبورد',
     'page.header.toolbar.fastOrder': 'سفارش سریع',
     'page.header.toolbar.wallets': 'کیف های من',
@@ -1121,7 +1122,7 @@ export const fa = {
     // app
     'account.currency.doesnt_exist': 'ارز مورد نظر موجود نیست',
     'account.currency.deposit_disabled':
-        'واریز به این کیف موقطاٌ غیرفعال می باشد.',
+        'واریز به این کیف موقتاً غیرفعال می باشد.',
     'account.deposit.invalid_state': 'وضعیت واریزی صحیح نیست',
     'account.deposit.non_integer_limit':
         'مقدار ارسالی نمی‌تواند به شکل اعداد صحیح باشد',

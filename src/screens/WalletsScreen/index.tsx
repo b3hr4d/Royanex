@@ -482,9 +482,13 @@ class WalletsComponent extends React.Component<Props, WalletsState> {
             { confirmations: currencyItem.min_confirmations },
         );
         const error = addressDepositError
-            ? this.props.intl.formatMessage({
-                  id: addressDepositError.message[0],
-              })
+            ? addressDepositError.message[0]
+                ? this.props.intl.formatMessage({
+                      id: addressDepositError.message[0],
+                  })
+                : this.props.intl.formatMessage({
+                      id: 'unknown',
+                  })
             : this.props.intl.formatMessage({
                   id: 'page.body.wallets.tabs.deposit.ccy.message.error',
               });
@@ -508,7 +512,10 @@ class WalletsComponent extends React.Component<Props, WalletsState> {
         if (wallets[selectedWalletIndex].type === 'coin') {
             return (
                 <React.Fragment>
-                    <CurrencyInfo wallet={wallets[selectedWalletIndex]} />
+                    <CurrencyInfo
+                        wallet={wallets[selectedWalletIndex]}
+                        currency={wallets[selectedWalletIndex].name}
+                    />
                     {currencyItem && !currencyItem.deposit_enabled ? (
                         <Blur
                             className={blurCryptoClassName}
@@ -546,7 +553,10 @@ class WalletsComponent extends React.Component<Props, WalletsState> {
         } else {
             return (
                 <React.Fragment>
-                    <CurrencyInfo wallet={wallets[selectedWalletIndex]} />
+                    <CurrencyInfo
+                        wallet={wallets[selectedWalletIndex]}
+                        currency={wallets[selectedWalletIndex].name}
+                    />
                     {currencyItem && !currencyItem.deposit_enabled ? (
                         <Blur
                             className="pg-blur-deposit-fiat"
@@ -582,7 +592,10 @@ class WalletsComponent extends React.Component<Props, WalletsState> {
 
         return (
             <React.Fragment>
-                <CurrencyInfo wallet={wallets[selectedWalletIndex]} />
+                <CurrencyInfo
+                    wallet={wallets[selectedWalletIndex]}
+                    currency={wallets[selectedWalletIndex].name}
+                />
                 {walletsError && (
                     <p className="pg-wallet__error">{walletsError.message}</p>
                 )}
