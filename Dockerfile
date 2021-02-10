@@ -19,7 +19,7 @@ ENV REACT_APP_SENTRY_PROJECT=${REACT_APP_SENTRY_PROJECT}
 
 RUN yarn install
 RUN npm rebuild node-sass
-RUN ./scripts/build.sh
+RUN yarn build
 
 FROM quay.io/imaster/nginx:latest
 
