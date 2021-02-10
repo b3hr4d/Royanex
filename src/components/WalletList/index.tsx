@@ -39,23 +39,25 @@ export class WalletList extends React.Component<WalletListProps> {
         return this.props.activeIndex === i;
     };
 
-    public makeWalletItem = (props: WalletItemProps, i: number) => (
-        <WalletItem
-            key={i}
-            {...{
-                ...props,
-                active: this.itemState(i),
-                currency: removeAlt(props.currency),
-                dashboard: this.props.dashboard,
-                address: this.props.address,
-                type: props.type,
-                generateAddressTriggered: this.props.generateAddressTriggered,
-                handleGenerateAddress: this.props.handleGenerateAddress,
-                handleAddressTriggerChange: this.props
-                    .handleAddressTriggerChange,
-            }}
-        />
-    );
+    public makeWalletItem = (props: WalletItemProps, i: number) =>
+        props.currency.toUpperCase() !== 'USDTT' && (
+            <WalletItem
+                key={i}
+                {...{
+                    ...props,
+                    active: this.itemState(i),
+                    currency: removeAlt(props.currency),
+                    dashboard: this.props.dashboard,
+                    address: this.props.address,
+                    type: props.type,
+                    generateAddressTriggered: this.props
+                        .generateAddressTriggered,
+                    handleGenerateAddress: this.props.handleGenerateAddress,
+                    handleAddressTriggerChange: this.props
+                        .handleAddressTriggerChange,
+                }}
+            />
+        );
     public handleClick = (i: number, props: WalletItemProps) => {
         if (this.props.onWalletSelectionChange) {
             this.props.onWalletSelectionChange(props);

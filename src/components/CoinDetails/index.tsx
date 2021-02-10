@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { walletsAddressReFetch } from '../../modules';
 import { HistoryScreen } from '../../screens/History';
 import { CurrencyInfo } from '../CurrencyInfo';
 import { WalletItemProps } from '../WalletItem';
@@ -25,6 +27,7 @@ const CoinDetailsComnponent: React.FC<CoinDetailsProps> = (props) => {
                     enName: 'usdt',
                     faName: 'تتر (ERC-20)',
                 });
+                data.reverse();
                 break;
             case 'usdt':
                 data.push({
@@ -40,11 +43,13 @@ const CoinDetailsComnponent: React.FC<CoinDetailsProps> = (props) => {
     };
     const addressArray = adressCompiler();
 
+    const dispatch = useDispatch();
+
     const tabChanger = (e) => {
         const currentPage = location.pathname.split('/').pop()!.toLowerCase();
         if (e !== currentPage) {
+            dispatch(walletsAddressReFetch({ currency: e }));
             history.push(e);
-            history.go(0);
         }
     };
     const renderCoins = (item) => (

@@ -159,17 +159,11 @@ const WalletItemComponent: React.FC<Props> = (props) => {
     const adressCompiler = (enName: string, faName: string) => {
         const data = [{ enName, faName }];
 
-        switch (enName) {
-            case 'USDTT':
-                data.push({
-                    enName: 'USDT',
-                    faName: 'تتر (ERC-20)',
-                });
-                break;
+        switch (enName.toLocaleUpperCase()) {
             case 'USDT':
                 data.push({
                     enName: 'USDTT',
-                    faName: 'تتر (ERC-20)',
+                    faName: 'USDT TRC20',
                 });
                 break;
             default:
