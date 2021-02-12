@@ -12,13 +12,6 @@ import {selectCurrentLanguage, selectMobileDeviceState} from './modules';
 import {languageMap} from './translations';
 // import {GoogleReCaptchaProvider} from 'react-google-recaptcha-v3';
 
-/* Desktop components */
-import { Alerts } from './containers/Alerts';
-import { Customization } from './containers/Customization';
-import { Footer } from './containers/Footer';
-import { Header } from './containers/Header';
-import { Sidebar } from './containers/Sidebar';
-import { Layout } from './routes';
 
 const gaKey = gaTrackerKey();
 const browserHistory = createBrowserHistory();
@@ -31,6 +24,17 @@ if (gaKey) {
     });
 }
 
+/* Mobile components */
+// const MobileFooter = React.lazy(() => import('./mobile/components/Footer').then(({Footer}) => ({default: Footer})));
+// const MobileHeader = React.lazy(() => import('./mobile/components/Header').then(({Header}) => ({default: Header})));
+
+/* Desktop components */
+const AlertsContainer = React.lazy(() => import('./containers/Alerts').then(({Alerts}) => ({default: Alerts})));
+const CustomizationContainer = React.lazy(() => import('./containers/Customization').then(({Customization}) => ({default: Customization})));
+const FooterContainer = React.lazy(() => import('./containers/Footer').then(({Footer}) => ({default: Footer})));
+const HeaderContainer = React.lazy(() => import('./containers/Header').then(({Header}) => ({default: Header})));
+const SidebarContainer = React.lazy(() => import('./containers/Sidebar').then(({Sidebar}) => ({default: Sidebar})));
+const LayoutContainer = React.lazy(() => import('./routes').then(({Layout}) => ({default: Layout})));
 
 const getTranslations = (lang: string, isMobileDevice: boolean) => {
     if (isMobileDevice) {
@@ -43,25 +47,43 @@ const getTranslations = (lang: string, isMobileDevice: boolean) => {
     return languageMap[lang];
 };
 
-const RenderDevices = () => {
+const RenderDeviceContainers = () => {
+    // const isMobileDevice = useSelector(selectMobileDeviceState);
     const location = useLocation();
+
+    // if (isMobileDevice) {
+    //     return (
+    //         <div className="pg-mobile-app">
+    //             <MobileHeader/>
+    //             <LayoutContainer/>
+    //             <MobileFooter/>
+    //             <FooterContainer/>
+    //             <AlertsContainer/>
+    //         </div>
+    //     );
+    // }
 
     return (
         <React.Fragment>
-            {location.pathname !== '/signin' &&
-            location.pathname !== '/signup' &&
-            location.pathname !== '/forgot_password' &&
-            location.pathname !== '/email-verification' ? (
-                <Header />
-            ) : null}
-            <Sidebar />
-            <Customization />
-            <Alerts />
-            <Layout />
-            <Footer />
+            {
+                (
+                    location.pathname !== '/signin'
+                    && location.pathname !== '/signup'
+                    && location.pathname !== '/forgot_password'
+                    && location.pathname !== '/email-verification'
+                )
+                    ? <HeaderContainer/>
+                    : null
+            }
+            <SidebarContainer/>
+            <CustomizationContainer/>
+            <AlertsContainer/>
+            <LayoutContainer/>
+            <FooterContainer/>
         </React.Fragment>
     );
 };
+
 export const App = () => {
     useSetMobileDevice();
     const lang = useSelector(selectCurrentLanguage);
@@ -73,7 +95,7 @@ export const App = () => {
             <Router history={browserHistory}>
                 <ErrorWrapper>
                     <React.Suspense fallback={null}>
-                        <RenderDevices />
+                        <RenderDeviceContainers />
                     </React.Suspense>
                 </ErrorWrapper>
             </Router>
