@@ -9,7 +9,6 @@ import {Provider} from 'react-redux';
 import {sentryEnabled} from './api';
 import {App} from './App';
 import './assets/fonts/fontiran.css';
-import './bootstrap/custom.pcss';
 import './index.css';
 import {rootSaga} from './modules';
 import {rangerSagas} from './modules/public/ranger';
