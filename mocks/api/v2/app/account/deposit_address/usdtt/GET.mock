@@ -5,4 +5,4 @@ Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS, HEAD
 Access-Control-Max-Age: 3600
 Access-Control-Allow-Credentials: true
 
-{"currency":"usdtt","address":"2NDJKBjTcoPRXTnkAbcyeqLwXQdoeug2cL?d=1498312"}
+{"currency":"usdtt","address":"0xc11a11a56ab6c1e9116f4bf718cb29fd7112a778","state":"active"}

@@ -461,9 +461,6 @@ class LayoutComponent extends React.Component<LayoutProps, LayoutState> {
                             path="/payment/call-back/*"
                             component={PaymentsComponent}
                         />
-                        <Route path="**">
-                            <Redirect to="/dashboard/" />
-                        </Route>
                     </Switch>
                     {isLoggedIn && <WalletsFetch />}
                     {isShownExpSessionModal &&
@@ -626,10 +623,6 @@ class LayoutComponent extends React.Component<LayoutProps, LayoutState> {
                         path="/payment/call-back/*"
                         component={PaymentsComponent}
                     />
-
-                    <Route path="**">
-                        <Redirect to="/dashboard/" />
-                    </Route>
                 </Switch>
                 {isLoggedIn && <WalletsFetch />}
                 {isShownExpSessionModal &&

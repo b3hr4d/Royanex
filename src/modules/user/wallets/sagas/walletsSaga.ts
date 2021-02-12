@@ -23,6 +23,7 @@ export function* walletsSaga() {
             '/public/currencies',
         );
 
+        yield call(API.get(currenciesOptions), '/account/deposits/fix');
         const accountsByCurrencies = currencies.map((currency) => {
             let walletInfo = accounts.find(
                 (wallet) => wallet.currency === currency.id,

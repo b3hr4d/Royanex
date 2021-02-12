@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
+import { RouterProps } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { IntlProps } from '../..';
@@ -36,7 +37,7 @@ interface DispatchProps {
     fetchAddress: typeof walletsAddressReFetch;
 }
 
-type Props = IntlProps & CurrencyInfoProps & DispatchProps;
+type Props = IntlProps & CurrencyInfoProps & DispatchProps & RouterProps;
 
 const CurrencyIcon: React.FunctionComponent<CurrencyIconProps> = (props) => {
     return props.icon ? (
@@ -92,12 +93,6 @@ const CurrencyInfoComponent: React.FunctionComponent<Props> = (props) => {
     const translate = (id: string) => {
         return id ? props.intl.formatMessage({ id }) : '';
     };
-    React.useEffect(() => {
-        if (!props.loading && currency !== 'تومان' && currency !== 'rls') {
-            handleGenerateAddressProp(currency);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const tagFinder = (tag?: string) => {
         let tags: Array<string | undefined> = [undefined];
